@@ -1,0 +1,153 @@
+
+train geo:
+nohup python -u train.py --save_name best_loc --metadata geo --stop_epoch 90 \
+  --filelist ./datasets/filelist_western_1day.hdf --start_lr 0.01 > ./logs/dynamicMLP_geo.out &
+
+train inci:
+nohup python -u train.py --save_name best_inci --metadata inci \
+  --filelist ./datasets/filelist_western_1day.hdf --start_lr 0.01 > ./logs/dynamicMLP_inci.out &
+----------------------------------------------------------------
+train geo date inci - augmentation:
+  nohup python -u train.py \
+  --save_name best_geo_date_inci_augmentation \
+  --metadata geo_temporal_inci \
+  --augmentation \
+  > ./logs/dynamicMLP_geo_date_inci_augmentation.out &
+
+evaluate:
+  python train.py \
+  --evaluate \
+  --save_name best_geo_date_inci_augmentation \
+  --metadata geo_temporal_inci \
+  --batch_size 2048
+
+train geo date inci - augmentation - additional unlabeled dataset:
+  nohup python -u train.py \
+  --semi \
+  --save_name best_geo_date_inci_augmentation_add \
+  --metadata geo_temporal_inci \
+  --augmentation \
+  > ./logs/dynamicMLP_geo_date_inci_augmentation_add.out &
+
+
+evaluate:
+  python train.py \
+  --evaluate \
+  --save_name best_geo_date_inci_augmentation_add \
+  --metadata geo_temporal_inci \
+  --batch_size 2048
+----------------------------------------------------------------
+train inci - augmentation:
+  nohup python -u train.py \
+  --save_name best_inci_augmentation \
+  --metadata inci \
+  --augmentation \
+  > ./logs/dynamicMLP_inci_augmentation.out &
+
+evaluate:
+  python train.py \
+  --evaluate \
+  --save_name best_inci_augmentation \
+  --metadata inci \
+  --batch_size 2048
+
+----------------------------------------------------------------
+train geo - augmentation:
+  nohup python -u train.py \
+  --gpu 0 \
+  --save_name best_geo_augmentation \
+  --metadata geo \
+  --augmentation \
+  > ./logs/dynamicMLP_geo_augmentation.out &
+
+evaluate:
+  python train.py \
+  --evaluate \
+  --save_name best_geo_augmentation \
+  --metadata geo \
+  --batch_size 2048
+-----------------------------------------------------------------
+train date - augmentation:
+  nohup python -u train.py \
+  --gpu 1 \
+  --save_name best_date_augmentation \
+  --metadata temporal \
+  --augmentation \
+  > ./logs/dynamicMLP_date_augmentation.out &
+
+evaluate:
+  python train.py \
+  --evaluate \
+  --save_name best_date_augmentation \
+  --metadata temporal \
+  --batch_size 2048
+
+----------------------------------------------------------------
+train geo date - augmentation:
+  nohup python -u train.py \
+  --save_name best_geo_date_augmentation \
+  --metadata geo_temporal \
+  --augmentation \
+  > ./logs/dynamicMLP_geo_date_augmentation.out &
+
+evaluate:
+  python train.py \
+  --evaluate \
+  --save_name best_geo_date_augmentation \
+  --metadata geo_temporal \
+  --batch_size 2048
+
+retrain:
+  nohup python -u train.py \
+  --retrain \
+  --save_name best_geo_date_augmentation_CRT \
+  --metadata geo_temporal \
+  --augmentation \
+  > ./logs/dynamicMLP_geo_date_augmentation_CRT.out &
+
+evaluate:
+  python train.py \
+  --evaluate \
+  --save_name best_geo_date_augmentation_CRT \
+  --metadata geo_temporal \
+  --batch_size 2048
+
+train geo date - augmentation - additional unlabeled dataset:
+  nohup python -u train.py \
+  --semi \
+  --save_name best_geo_date_augmentation_add \
+  --metadata geo_temporal \
+  --augmentation \
+  > ./logs/dynamicMLP_geo_date_augmentation_add.out &
+
+  python train.py \
+  --semi \
+  --save_name best_geo_date_augmentation_add \
+  --metadata geo_temporal \
+  --augmentation
+
+evaluate:
+  python train.py \
+  --evaluate \
+  --save_name best_geo_date_augmentation_add \
+  --metadata geo_temporal \
+  --batch_size 1024
+------------------------------------------------------------------
+
+train image only:
+  nohup python -u train.py \
+  --image_only \
+  --save_name best_img_augmentation \
+  --model_file resnet \
+  --augmentation \
+  > ./logs/dynamicMLP_img_augmentation.out &
+
+evaluate:
+  python train.py \
+  --evaluate \
+  --image_only \
+  --save_name best_img_augmentation \
+  --model_file resnet \
+  --batch_size 2048
+-------------------------------------------------------------------
+
