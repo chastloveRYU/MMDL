@@ -1,0 +1,223 @@
+
+ResNet:
+  geo date inci:
+    train:
+      nohup python -u train.py \
+      --gpu 1 \
+      --save_name resnet_geo_date_inci_aug \
+      --metadata geo_temporal_inci \
+      --augmentation \
+      > ./logs/resnet_geo_date_inci_aug.out &
+    evaluate:
+      nohup python train.py \
+      --gpu 0 \
+      --evaluate \
+      --save_name resnet_geo_date_inci_aug \
+      --metadata geo_temporal_inci \
+      --batch_size 2048 &
+
+  geo date:
+    train:
+      nohup python -u train.py \
+      --gpu 0 \
+      --save_name best_geo_date_aug \
+      --metadata geo_temporal \
+      --augmentation \
+      > ./logs/resnet_geo_date_aug.out &
+    evaluate:
+      nohup python train.py \
+      --gpu 0 \
+      --evaluate \
+      --save_name best_geo_date_aug \
+      --metadata geo_temporal \
+      --batch_size 2048 &
+
+  geo:
+    train:
+      nohup python -u train.py \
+      --gpu 1 \
+      --save_name resnet_geo_aug \
+      --metadata geo \
+      --augmentation \
+      > ./logs/resnet_geo_aug.out &
+    evaluate:
+      nohup python train.py \
+      --gpu 1 \
+      --evaluate \
+      --save_name resnet_geo_aug \
+      --metadata geo \
+      --batch_size 2048 &
+
+  date:
+    train:
+      nohup python -u train.py \
+      --gpu 0 \
+      --save_name resnet_date_aug \
+      --metadata temporal \
+      --augmentation \
+      > ./logs/resnet_date_aug.out &
+    evaluate:
+      nohup python train.py \
+      --gpu 0 \
+      --evaluate \
+      --save_name resnet_date_aug \
+      --metadata temporal \
+      --batch_size 2048 &
+
+  inci:
+    train:
+      nohup python -u train.py \
+      --gpu 1 \
+      --save_name resnet_inci_aug \
+      --metadata inci \
+      --augmentation \
+      > ./logs/resnet_inci_aug.out &
+    evaluate:
+      nohup python train.py \
+      --gpu 1 \
+      --evaluate \
+      --save_name resnet_inci_aug \
+      --metadata inci \
+      --batch_size 2048 &
+
+  image only:
+    train:
+      nohup python -u train.py \
+      --gpu 0 \
+      --image_only \
+      --save_name resnet_img_aug \
+      --model_file resnet \
+      --augmentation \
+      > ./logs/resnet_img_aug.out &
+    evaluate:
+      nohup python train.py \
+      --gpu 1 \
+      --evaluate \
+      --image_only \
+      --save_name resnet_img_aug \
+      --model_file resnet \
+      --batch_size 2048 &
+
+ViT:
+  geo date inci:
+    train:
+      nohup python -u train.py \
+      --gpu 0 \
+      --save_name vit_geo_temporal_inci_aug \
+      --model_file models_vit \
+      --model_name vit_base \
+      --metadata geo_temporal_inci \
+      --augmentation \
+      > ./logs/vit_geo_temporal_inci_aug.out &
+    evaluate:
+      nohup python train.py \
+      --gpu 0 \
+      --evaluate \
+      --save_name vit_geo_temporal_inci_aug \
+      --model_file models_vit \
+      --model_name vit_base \
+      --metadata geo_temporal_inci \
+      --batch_size 512 &
+  geo date:
+    train:
+      nohup python -u train.py \
+      --gpu 1 \
+      --save_name vit_geo_temporal_aug \
+      --model_file models_vit \
+      --model_name vit_base \
+      --metadata geo_temporal \
+      --augmentation \
+      > ./logs/vit_geo_temporal_aug.out &
+    evaluate:
+      nohup python train.py \
+      --gpu 1 \
+      --evaluate \
+      --save_name vit_geo_temporal_aug \
+      --model_file models_vit \
+      --model_name vit_base \
+      --metadata geo_temporal \
+      --batch_size 2048 &
+  geo:
+    train:
+      nohup python -u train.py \
+      --gpu 0 \
+      --save_name vit_geo_aug \
+      --model_file models_vit \
+      --model_name vit_base \
+      --metadata geo \
+      --augmentation \
+      > ./logs/vit_geo_aug.out &
+    evaluate:
+      nohup python train.py \
+      --gpu 0 \
+      --evaluate \
+      --save_name vit_geo_aug \
+      --model_file models_vit \
+      --model_name vit_base \
+      --metadata geo \
+      --batch_size 512 &
+  date:
+    train:
+      nohup python -u train.py \
+      --gpu 1 \
+      --save_name vit_temporal_aug \
+      --model_file models_vit \
+      --model_name vit_base \
+      --metadata temporal \
+      --augmentation \
+      > ./logs/vit_temporal_aug.out &
+    evaluate:
+      nohup python train.py \
+      --gpu 1 \
+      --evaluate \
+      --save_name vit_temporal_aug \
+      --model_file models_vit \
+      --model_name vit_base \
+      --metadata temporal \
+      --batch_size 512 &
+
+  inci:
+    train:
+      nohup python -u train.py \
+      --gpu 0 \
+      --save_name vit_inci_aug \
+      --model_file models_vit \
+      --model_name vit_base \
+      --metadata inci \
+      --augmentation \
+      > ./logs/vit_inci_aug.out &
+    evaluate:
+      nohup python train.py \
+      --gpu 0 \
+      --evaluate \
+      --save_name vit_inci_aug \
+      --model_file models_vit \
+      --model_name vit_base \
+      --metadata inci \
+      --batch_size 2048 &
+  image only:
+    train:
+      nohup python -u train.py \
+      --gpu 1 \
+      --image_only \
+      --save_name vit_img_aug \
+      --model_file models_vit \
+      --model_name vit_base \
+      --augmentation \
+      > ./logs/vit_img_aug.out &
+    evaluate:
+      nohup python train.py \
+      --gpu 1 \
+      --evaluate \
+      --image_only \
+      --save_name vit_img_aug \
+      --model_file models_vit \
+      --model_name vit_base \
+      --batch_size 2048 &
+
+
+
+
+python train_multi_task.py --save_name resnet_img_aug --model_file resnet --augmentation --num_workers 0 --mgda --use_approximation --batch_size 32 
+
+python train_multi_task.py --save_name resnet_geo_date_inci_aug --augmentation --num_workers 0 --mgda --use_approximation --batch_size 32 --metadata geo_temporal_inci
